@@ -1,0 +1,55 @@
+mat-sidenav-container,
+mat-sidenav-content,
+mat-sidenav {
+  height: 100%;
+}
+.top-nav {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+mat-sidenav {
+  width: 230px;
+  span {
+    margin-left: 0.5rem;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin: 0.5rem;
+  margin-top: 1rem;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  top: 0;
+  width: 100%;
+  color: white;
+  padding-left: 40px;
+  .flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  a {
+    padding: 0 1rem;
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+      color: #ccc;
+    }
+  }
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}

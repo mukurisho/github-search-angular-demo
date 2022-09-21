@@ -1,0 +1,131 @@
+<div class="page">
+  <mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel #panel>
+      <mat-expansion-panel-header>
+        <form
+          class="form"
+          [formGroup]="searchForm"
+          (click)="$event.stopPropagation()"
+          *ngIf="!panel.expanded">
+          <div class="form-row">
+            <div class="form-column">
+              <mat-form-field
+                class="example-full-width"
+                appearance="fill"
+              >
+                <mat-label>Search By</mat-label>
+                <input  formControlName="searchBy" matInput />
+              </mat-form-field>
+            </div>
+            <div class="form-column">
+              <span>In:</span>
+              <mat-checkbox formControlName="byName">Name</mat-checkbox>
+              <mat-checkbox formControlName="byDescription"
+                >Description</mat-checkbox
+              >
+              <mat-checkbox formControlName="byReadme">Readme</mat-checkbox>
+            </div>
+            <div class="form-column" *ngIf="!panel.expanded">
+              <div class="button-container">
+                <button mat-icon-button (click)="onSearch()">
+                  <mat-icon>search</mat-icon>
+                </button>
+                <button mat-icon-button (click)="onReset()">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+
+      </mat-expansion-panel-header>
+
+      <form
+        class="form"
+        [formGroup]="searchForm"
+        (click)="$event.stopPropagation()"
+        *ngIf="panel.expanded">
+        <div class="form-row">
+          <div class="form-column">
+            <mat-form-field
+              class="example-full-width"
+              appearance="fill"
+            >
+              <mat-label>Search By</mat-label>
+              <input  formControlName="searchBy" matInput />
+            </mat-form-field>
+          </div>
+          <div class="form-column">
+            <span>In:</span>
+            <mat-checkbox formControlName="byName">Name</mat-checkbox>
+            <mat-checkbox formControlName="byDescription"
+              >Description</mat-checkbox
+            >
+            <mat-checkbox formControlName="byReadme">Readme</mat-checkbox>
+          </div>
+          <div class="form-column" *ngIf="!panel.expanded">
+            <div class="button-container">
+              <button mat-icon-button (click)="onSearch()">
+                <mat-icon>search</mat-icon>
+              </button>
+              <button mat-icon-button (click)="onReset()">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-column">
+            <mat-form-field
+                class="example-full-width"
+                appearance="fill"
+              >
+                <mat-label>User name</mat-label>
+                <input  formControlName="userName" matInput />
+              </mat-form-field>
+          </div>
+          <div class="form-column">
+            <mat-form-field
+              class="example-full-width"
+              appearance="fill"
+            >
+              <mat-label>Language</mat-label>
+              <input  formControlName="language" matInput />
+            </mat-form-field>
+          </div>
+          <div class="form-column">
+            <mat-form-field
+              class="example-full-width"
+              appearance="fill"
+            >
+              <mat-label>Topic</mat-label>
+              <input  formControlName="topic" matInput />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-column">
+            <mat-form-field
+              class="example-full-width"
+              appearance="fill"
+            >
+              <mat-label>Organization</mat-label>
+              <input  formControlName="topic" matInput />
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="form-row">
+
+        </div>
+      </form>
+
+      <button mat-icon-button (click)="onSearch()">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button mat-icon-button (click)="onReset()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

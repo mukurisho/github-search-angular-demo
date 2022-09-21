@@ -1,0 +1,7 @@
+export enum SortDateEnum {
+  BEFORE = 'BEFORE',
+  ONORBEFORE = 'ONORBEFORE',
+  AFTER = 'AFTER',
+  ONORAFTER = 'ONORAFTER',
+  BETWEEN = 'BETWEEN'
+}

@@ -1,0 +1,26 @@
+<mat-toolbar color="primary">
+ <span>Github search demo</span>
+ <div class="toolbar">
+   <div class="flex">
+    <a
+      *ngFor="let item of navItems"
+      mat-list-item
+      routerLink="{{ item.route }}"
+      routerLinkActive="active"
+    >
+      <span> {{ item.title }}</span>
+    </a>
+  </div>
+ </div>
+ <span class="example-spacer"></span>
+ <button mat-button [matMenuTriggerFor]="menu">
+  <mat-icon>menu</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <a mat-menu-item>Page 1</a>
+  <a mat-menu-item>Page 2</a>
+  <a mat-menu-item>Mobile</a>
+</mat-menu>
+</mat-toolbar>
+
+
