@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  width: 90%;
+  justify-content: center;
+  margin: 0 auto;
+
+  .result-list {
+    width: 70%;
+  }
+
+  .query-list {
+    width: 30%;
+  }
+}
+

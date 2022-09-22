@@ -11,8 +11,8 @@ export class GithubRepository {
 
   constructor(private readonly http: HttpClient) { }
 
-  getUser(): Observable<any> {
+  getUser(searchParams: any): Observable<any> {
     let url = env.githubUrl;
-    return this.http.get<any>(`${url}/user`);
+    return this.http.get<any>(`${url}/search/repositories?q=${searchParams.searchBy} in:name in:readme`);
   }
 }

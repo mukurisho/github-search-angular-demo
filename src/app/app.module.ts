@@ -15,6 +15,12 @@ import { SearchEffects } from './store/search/search-effects';
 import { searchReducer } from './store/search/search-reducer';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { SearchFormComponent } from './feature/search/component/search-form/search-form.component';
+import { ResultPageComponent } from './feature/search/component/result-page/result-page.component';
+import { SearchQueryHistoryListComponent } from './feature/history/component/search-query-history-list/search-query-history-list.component';
+import { SearchResultHistoryListComponent } from './feature/history/component/search-result-history-list/search-result-history-list.component';
+import { QueryHistoryListItemComponent } from './feature/history/component/query-history-list-item/query-history-list-item.component';
+import { historyReducer } from './store/history/history-reducer';
 
 @NgModule({
   declarations: [
@@ -22,6 +28,11 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     SearchPageComponent,
     HistoryPageComponent,
     NavComponent,
+    SearchFormComponent,
+    ResultPageComponent,
+    SearchQueryHistoryListComponent,
+    SearchResultHistoryListComponent,
+    QueryHistoryListItemComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +44,7 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     HttpClientModule,
     StoreModule.forRoot({
       search: searchReducer,
+      history: historyReducer
     }),
     EffectsModule.forRoot([SearchEffects]),
   ],

@@ -1,0 +1,91 @@
+<mat-form-field appearance="standard">
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input />
+</mat-form-field>
+
+<div class="mat-elevation-z8 table-container">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+      <td mat-cell *matCellDef="let row">
+        <span (click)="openUrl(row.url)" class="repository-name">
+          {{ row.name }}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="statistic">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Info</th>
+      <td mat-cell *matCellDef="let row">
+        <div class="cell-row">
+          <div class="cell-column">
+            Stars: <span class="statistic-data">{{ row.statistic.stars }}</span>
+          </div>
+          <div class="cell-column">
+            Forks: <span class="statistic-data">{{ row.statistic.forks }}</span>
+          </div>
+        </div>
+        <div class="cell-row">
+          <div class="cell-column">
+            Watchers: <span class="statistic-data">{{ row.statistic.watchers }}</span>
+          </div>
+          <div class="cell-column">
+            Issues: <span class="statistic-data">{{ row.statistic.issues }}</span>
+          </div>
+        </div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>description</th>
+      <td mat-cell *matCellDef="let row">{{ row.description }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="languages">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>languages</th>
+      <td mat-cell *matCellDef="let row">{{ row.languages }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>date</th>
+      <td mat-cell *matCellDef="let row">
+        <p>
+          created at:<span> {{ row.date.createdAt | date }}</span>
+        </p>
+        <p>
+          updated at:<span> {{ row.date.updatedAt | date }}</span>
+        </p>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="owner">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>user</th>
+      <td mat-cell *matCellDef="let row">{{ row.owner }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="avatar">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>avatar</th>
+      <td mat-cell *matCellDef="let row" >
+        <img (click)="openUrl(row.avatar.profileUrl)" class="avatar-img" width="70px" src="{{ row.avatar.avatarUrl }} /" />
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data to display</td>
+    </tr>
+  </table>
+
+  <mat-paginator
+    [pageSizeOptions]="[10, 15, 25, 100]"
+    aria-label="Select page of users"
+  ></mat-paginator>
+  <div class="spinner-container" *ngIf="isLoading">
+    <mat-spinner ></mat-spinner>
+  </div>
+</div>
+
+

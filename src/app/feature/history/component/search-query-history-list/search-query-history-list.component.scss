@@ -1,0 +1,11 @@
+.total-request-count {
+  text-align: right;
+  padding: 10px 20px;
+}
+
+.list-item {
+  cursor: pointer;
+  &:hover {
+    background-color: #ccc;
+  }
+}

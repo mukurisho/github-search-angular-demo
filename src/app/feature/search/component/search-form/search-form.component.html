@@ -1,0 +1,234 @@
+<mat-accordion class="example-headers-align" multi>
+  <mat-expansion-panel #panel [hideToggle]="panel.expanded" >
+    <mat-expansion-panel-header #panelH [ngClass]="{'hide': panel.expanded}">
+      <form
+        class="form"
+        [formGroup]="searchForm"
+        (click)="$event.stopPropagation()"
+        *ngIf="!panel.expanded">
+        <div class="form-row">
+          <div class="form-column">
+            <mat-form-field
+              class="example-full-width"
+              appearance="fill"
+            >
+              <mat-label>Search By</mat-label>
+              <input
+                formControlName="searchBy"
+                matInput/>
+                <mat-error *ngIf="searchForm.controls['searchBy'].hasError('required')">
+                  This field is <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="searchForm.controls['searchBy'].hasError('minlength') && !searchForm.controls['searchBy'].hasError('required')">
+                  Type at least <strong>3</strong> character please!
+                </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-column">
+            <span>In:</span>
+            <mat-checkbox formControlName="byName">Name</mat-checkbox>
+            <mat-checkbox formControlName="byDescription"
+              >Description</mat-checkbox
+            >
+            <mat-checkbox formControlName="byReadme">Readme</mat-checkbox>
+          </div>
+          <div class="form-column" *ngIf="!panel.expanded">
+            <div class="button-container">
+              <button mat-icon-button (click)="onSearch()">
+                <mat-icon>search</mat-icon>
+              </button>
+              <button mat-icon-button (click)="onReset()">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </mat-expansion-panel-header>
+    <div class="toggle-bar" *ngIf="panel.expanded">
+      <button mat-icon-button (click)="panel.toggle()">
+        <mat-icon>
+          expand_less
+        </mat-icon>
+      </button>
+    </div>
+    <form
+      class="form"
+      [formGroup]="searchForm"
+      (click)="$event.stopPropagation()"
+      *ngIf="panel.expanded">
+      <div class="form-row">
+        <div class="form-column">
+          <mat-form-field
+            class="example-full-width"
+            appearance="fill"
+          >
+            <mat-label>Search By</mat-label>
+            <input
+              formControlName="searchBy"
+              matInput/>
+            <mat-error *ngIf="searchForm.controls['searchBy'].hasError('required')">
+              This field is <strong>required</strong>
+            </mat-error>
+            <mat-error *ngIf="searchForm.controls['searchBy'].hasError('minlength') && !searchForm.controls['searchBy'].hasError('required')">
+              Type at least <strong>3</strong> character please!
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-column">
+          <span>In:</span>
+          <mat-checkbox formControlName="byName">Name</mat-checkbox>
+          <mat-checkbox formControlName="byDescription"
+            >Description</mat-checkbox
+          >
+          <mat-checkbox formControlName="byReadme">Readme</mat-checkbox>
+        </div>
+        <div class="form-column" *ngIf="!panel.expanded">
+          <div class="button-container">
+            <button mat-icon-button (click)="onSearch()">
+              <mat-icon>search</mat-icon>
+            </button>
+            <button mat-icon-button (click)="onReset()">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-column">
+          <mat-form-field
+              class="example-full-width"
+              appearance="fill"
+            >
+              <mat-label>User name</mat-label>
+              <input formControlName="userName" matInput />
+              <mat-error *ngIf="searchForm.controls['userName'].hasError('minlength')">
+                Type at least <strong>3</strong> character please!
+              </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="form-column">
+          <mat-form-field
+            class="example-full-width"
+            appearance="fill"
+          >
+            <mat-label>Language</mat-label>
+            <input formControlName="language" matInput />
+            <mat-error *ngIf="searchForm.controls['language'].hasError('minlength')">
+              Type at least <strong>3</strong> character please!
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-column">
+          <mat-form-field
+            class="example-full-width"
+            appearance="fill"
+          >
+            <mat-label>Topic</mat-label>
+            <input formControlName="topic" matInput />
+            <mat-error *ngIf="searchForm.controls['topic'].hasError('minlength')">
+              Type at least <strong>3</strong> character please!
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-column">
+          <mat-form-field
+            class="example-full-width"
+            appearance="fill"
+          >
+            <mat-label>Organization</mat-label>
+            <input formControlName="organization" matInput />
+            <mat-error *ngIf="searchForm.controls['organization'].hasError('minlength')">
+              Type at least <strong>3</strong> character please!
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-column half">
+          <div class="form-row">
+            <mat-label>
+              Stars
+            </mat-label>
+            <mat-radio-group aria-label="Select an option" formControlName="starsSort">
+              <mat-radio-button value="1">{{sortEnumLabelMapping[sortEnum.EQUAL]}}</mat-radio-button>
+              <mat-radio-button value="2">{{sortEnumLabelMapping[sortEnum.GREATER]}}</mat-radio-button>
+              <mat-radio-button value="2">{{sortEnumLabelMapping[sortEnum.LESS]}}</mat-radio-button>
+              <mat-radio-button value="2">{{sortEnumLabelMapping[sortEnum.BETWEEN]}}</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="form-row">
+            <mat-form-field
+              class="example-full-width"
+              appearance="fill"
+            >
+              <mat-label>Number</mat-label>
+              <input  formControlName="starsNumber" matInput />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-column half">
+          <div class="form-row">
+            <mat-label>
+              Created
+            </mat-label>
+            <mat-radio-group aria-label="Select an option" formControlName="createdSort">
+              <mat-radio-button value="1">{{sortDateEnumLabelMapping[sortDateEnum.BEFORE]}}</mat-radio-button>
+              <mat-radio-button value="2">{{sortDateEnumLabelMapping[sortDateEnum.ONORBEFORE]}}</mat-radio-button>
+              <mat-radio-button value="1">{{sortDateEnumLabelMapping[sortDateEnum.AFTER]}}</mat-radio-button>
+              <mat-radio-button value="2">{{sortDateEnumLabelMapping[sortDateEnum.ONORAFTER]}}</mat-radio-button>
+              <mat-radio-button value="2">{{sortDateEnumLabelMapping[sortDateEnum.BETWEEN]}}</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="form-row">
+            <mat-form-field appearance="fill">
+              <mat-label>Date</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="createdDate">
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-column half">
+          <div class="form-row">
+            <mat-label>
+              Size
+            </mat-label>
+            <mat-radio-group aria-label="Select an option" formControlName="starsSort">
+              <mat-radio-button value="1">{{sortEnumLabelMapping[sortEnum.EQUAL]}}</mat-radio-button>
+              <mat-radio-button value="2">{{sortEnumLabelMapping[sortEnum.GREATER]}}</mat-radio-button>
+              <mat-radio-button value="2">{{sortEnumLabelMapping[sortEnum.LESS]}}</mat-radio-button>
+              <mat-radio-button value="2">{{sortEnumLabelMapping[sortEnum.BETWEEN]}}</mat-radio-button>
+            </mat-radio-group>
+          </div>
+          <div class="form-row">
+            <mat-form-field
+              class="example-full-width"
+              appearance="fill"
+            >
+              <mat-label>Number</mat-label>
+              <input  formControlName="starsNumber" matInput />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-column half empty">
+          <div class="button-container">
+            <button mat-icon-button (click)="onSearch()">
+              <mat-icon>search</mat-icon>
+            </button>
+            <button mat-icon-button (click)="onReset()">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>
