@@ -65,7 +65,7 @@ ${(searchParams.createdSort === SortDateEnum.AFTER) ? ` created:>${this.datePipe
 ${(searchParams.createdSort === SortDateEnum.BEFORE) ? ` created:<${this.datePipe.transform(searchParams.createdDate, 'yyyy-MM-dd')}` : ''}\
 ${(searchParams.createdSort === SortDateEnum.ONORAFTER) ? ` created:>=${this.datePipe.transform(searchParams.createdDate, 'yyyy-MM-dd')}` : ''}\
 ${(searchParams.createdSort === SortDateEnum.ONORBEFORE) ? ` created:<=${this.datePipe.transform(searchParams.createdDate, 'yyyy-MM-dd')}` : ''}\
-${(searchParams.createdSort === SortDateEnum.BETWEEN) ? ` created:${this.datePipe.transform(searchParams.createdDate, 'yyyy-MM-dd')}..${this.datePipe.transform(searchParams.createdDate, 'yyyy-MM-dd')}` : ''}\
+${(searchParams.createdSort === SortDateEnum.BETWEEN) ? ` created:${this.datePipe.transform(searchParams.createdMin, 'yyyy-MM-dd')}..${this.datePipe.transform(searchParams.createdMax, 'yyyy-MM-dd')}` : ''}\
 &order=${(searchParams.order === TableOrderEnum.ASC) ? 'asc' : (searchParams.order === TableOrderEnum.DESC) ? 'desc' : ''}\
 &sort=${sortParam}`;
     return this.http.get<any>(`${url}/search/repositories?q=${params}`);
