@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { SearchResultHistoryListComponent } from './search-result-history-list.component';
+import { AngularMaterialModule } from 'src/app/angular-material.modules';
 
 describe('SearchResultHistoryListComponent', () => {
   let component: SearchResultHistoryListComponent;
@@ -11,7 +12,8 @@ describe('SearchResultHistoryListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchResultHistoryListComponent ]
+      declarations: [ SearchResultHistoryListComponent ],
+      imports: [AngularMaterialModule]
     })
     .compileComponents();
   }));

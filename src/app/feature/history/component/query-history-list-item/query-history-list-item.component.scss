@@ -1,5 +1,7 @@
 .item-container {
-  border: 1px solid #666;
-  margin: 10px 20px;
-  padding: 15px;
+  display: flex;
+
+  .column {
+    width: 50%;
+  }
 }

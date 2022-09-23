@@ -4,6 +4,10 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { SearchQueryHistoryListComponent } from './search-query-history-list.component';
+import { AngularMaterialModule } from 'src/app/angular-material.modules';
+import { ActionsSubject, ReducerManager, ReducerManagerDispatcher, StateObservable, Store, StoreModule } from '@ngrx/store';
+import { searchReducer } from 'src/app/store/search/search-reducer';
+import { historyReducer } from 'src/app/store/history/history-reducer';
 
 describe('SearchQueryHistoryListComponent', () => {
   let component: SearchQueryHistoryListComponent;
@@ -11,7 +15,21 @@ describe('SearchQueryHistoryListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchQueryHistoryListComponent ]
+      declarations: [ SearchQueryHistoryListComponent ],
+      imports: [
+        AngularMaterialModule,
+        StoreModule.forRoot({
+          search: searchReducer,
+          searchParamsHistory: historyReducer,
+        }),
+      ],
+      providers: [
+        Store,
+        // StateObservable,
+        // ActionsSubject,
+        // ReducerManager,
+        // ReducerManagerDispatcher
+      ]
     })
     .compileComponents();
   }));

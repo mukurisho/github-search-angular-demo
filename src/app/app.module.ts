@@ -21,6 +21,7 @@ import { SearchQueryHistoryListComponent } from './feature/history/component/sea
 import { SearchResultHistoryListComponent } from './feature/history/component/search-result-history-list/search-result-history-list.component';
 import { QueryHistoryListItemComponent } from './feature/history/component/query-history-list-item/query-history-list-item.component';
 import { historyReducer } from './store/history/history-reducer';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -50,11 +51,12 @@ import { historyReducer } from './store/history/history-reducer';
   ],
   providers: [
     Store,
-    {
-      provide : HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi   : true,
-    },
+    // {
+    //   provide : HTTP_INTERCEPTORS,
+    //   useClass: AuthInterceptor,
+    //   multi   : true,
+    // },
+    DatePipe
   ],
   bootstrap: [AppComponent],
 })

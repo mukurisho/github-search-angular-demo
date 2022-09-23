@@ -11,11 +11,12 @@ import { selectQueryHistoryList } from 'src/app/store/history/history-selectors'
 export class SearchQueryHistoryListComponent {
 
   queryHistoryList$ = this._store.pipe(select(selectQueryHistoryList));
+  selectedQuery: number
 
   constructor(private _store: Store) { }
 
   selectItem(index: number) {
-    console.log('SearchQueryHistoryListComponent.selectItem: ', index);
+    this.selectedQuery = index;
     this._store.dispatch(
       setSelectedQueryIndex({
         index

@@ -25,12 +25,28 @@
             </mat-form-field>
           </div>
           <div class="form-column">
-            <span>In:</span>
-            <mat-checkbox formControlName="byName">Name</mat-checkbox>
-            <mat-checkbox formControlName="byDescription"
-              >Description</mat-checkbox
-            >
-            <mat-checkbox formControlName="byReadme">Readme</mat-checkbox>
+            <div class="form-column-container">
+              <div class="form-sub-row">
+                <span>In:</span>
+                <mat-checkbox
+                  [required]="!searchForm.controls['byDescription'].value && !searchForm.controls['byReadme'].value"
+                  formControlName="byName">Name</mat-checkbox>
+                <mat-checkbox
+                  [required]="!searchForm.controls['byName'].value && !searchForm.controls['byReadme'].value"
+                  formControlName="byDescription">Description</mat-checkbox>
+                <mat-checkbox
+                  [required]="!searchForm.controls['byDescription'].value && !searchForm.controls['byName'].value"
+                  formControlName="byReadme">Readme</mat-checkbox>
+              </div>
+              <div class="form-sub-row">
+                <mat-error
+                  *ngIf="searchForm.controls['byName'].hasError('required')
+                    || searchForm.controls['byDescription'].hasError('required')
+                    || searchForm.controls['byReadme'].hasError('required')">
+                  Check at least <strong>1</strong> of these please!
+                </mat-error>
+              </div>
+            </div>
           </div>
           <div class="form-column" *ngIf="!panel.expanded">
             <div class="button-container">
@@ -77,12 +93,28 @@
           </mat-form-field>
         </div>
         <div class="form-column">
-          <span>In:</span>
-          <mat-checkbox formControlName="byName">Name</mat-checkbox>
-          <mat-checkbox formControlName="byDescription"
-            >Description</mat-checkbox
-          >
-          <mat-checkbox formControlName="byReadme">Readme</mat-checkbox>
+          <div class="form-column-container">
+            <div class="form-sub-row">
+              <span>In:</span>
+              <mat-checkbox
+                [required]="!searchForm.controls['byDescription'].value && !searchForm.controls['byReadme'].value"
+                formControlName="byName">Name</mat-checkbox>
+              <mat-checkbox
+                [required]="!searchForm.controls['byName'].value && !searchForm.controls['byReadme'].value"
+                formControlName="byDescription">Description</mat-checkbox>
+              <mat-checkbox
+                [required]="!searchForm.controls['byDescription'].value && !searchForm.controls['byName'].value"
+                formControlName="byReadme">Readme</mat-checkbox>
+            </div>
+            <div class="form-sub-row">
+              <mat-error
+                *ngIf="searchForm.controls['byName'].hasError('required')
+                  || searchForm.controls['byDescription'].hasError('required')
+                  || searchForm.controls['byReadme'].hasError('required')">
+                Check at least <strong>1</strong> of these please!
+              </mat-error>
+            </div>
+          </div>
         </div>
         <div class="form-column" *ngIf="!panel.expanded">
           <div class="button-container">
@@ -114,10 +146,20 @@
             appearance="fill"
           >
             <mat-label>Language</mat-label>
-            <input formControlName="language" matInput />
-            <mat-error *ngIf="searchForm.controls['language'].hasError('minlength')">
-              Type at least <strong>3</strong> character please!
-            </mat-error>
+            <mat-chip-list #chipListLang >
+              <mat-chip *ngFor="let lang of languageList" (removed)="deleteLang(lang)">
+                {{lang}}
+                <button matChipRemove>
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip>
+              <input placeholder="Language"
+                [matChipInputFor]="chipListLang"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="addLang($event)"
+                formControlName="language">
+            </mat-chip-list>
           </mat-form-field>
         </div>
         <div class="form-column">
@@ -126,10 +168,20 @@
             appearance="fill"
           >
             <mat-label>Topic</mat-label>
-            <input formControlName="topic" matInput />
-            <mat-error *ngIf="searchForm.controls['topic'].hasError('minlength')">
-              Type at least <strong>3</strong> character please!
-            </mat-error>
+            <mat-chip-list #chipList >
+              <mat-chip *ngFor="let topic of topicList" (removed)="deleteTopic(topic)">
+                {{topic}}
+                <button matChipRemove>
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip>
+              <input placeholder="Topic"
+                [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur"
+                (matChipInputTokenEnd)="addTopic($event)"
+                formControlName="topic">
+            </mat-chip-list>
           </mat-form-field>
         </div>
       </div>
@@ -150,72 +202,124 @@
 
       <div class="form-row">
         <div class="form-column half">
-          <div class="form-row">
+          <div class="form-row radio">
             <mat-label>
               Stars
             </mat-label>
             <mat-radio-group aria-label="Select an option" formControlName="starsSort">
-              <mat-radio-button value="1">{{sortEnumLabelMapping[sortEnum.EQUAL]}}</mat-radio-button>
-              <mat-radio-button value="2">{{sortEnumLabelMapping[sortEnum.GREATER]}}</mat-radio-button>
-              <mat-radio-button value="2">{{sortEnumLabelMapping[sortEnum.LESS]}}</mat-radio-button>
-              <mat-radio-button value="2">{{sortEnumLabelMapping[sortEnum.BETWEEN]}}</mat-radio-button>
+              <mat-radio-button [value]="sortEnum.EQUAL">{{sortEnumLabelMapping[sortEnum.EQUAL]}}</mat-radio-button>
+              <mat-radio-button [value]="sortEnum.GREATER">{{sortEnumLabelMapping[sortEnum.GREATER]}}</mat-radio-button>
+              <mat-radio-button [value]="sortEnum.LESS">{{sortEnumLabelMapping[sortEnum.LESS]}}</mat-radio-button>
+              <mat-radio-button [value]="sortEnum.BETWEEN">{{sortEnumLabelMapping[sortEnum.BETWEEN]}}</mat-radio-button>
             </mat-radio-group>
           </div>
           <div class="form-row">
-            <mat-form-field
-              class="example-full-width"
-              appearance="fill"
-            >
-              <mat-label>Number</mat-label>
-              <input  formControlName="starsNumber" matInput />
-            </mat-form-field>
+            <ng-container *ngIf="searchForm.controls['starsSort'].value !== sortEnum.BETWEEN">
+              <mat-form-field
+                class="example-full-width"
+                appearance="fill"
+              >
+                <mat-label>Number</mat-label>
+                <input  formControlName="starsNumber" matInput />
+              </mat-form-field>
+            </ng-container>
+            <ng-container *ngIf="searchForm.controls['starsSort'].value === sortEnum.BETWEEN">
+              <mat-form-field
+                class="min"
+                appearance="fill"
+              >
+                <mat-label>Min</mat-label>
+                <input  formControlName="starsMin" matInput />
+              </mat-form-field>
+              <span>-</span>
+              <mat-form-field
+                class="max"
+                appearance="fill"
+              >
+                <mat-label>Max</mat-label>
+                <input  formControlName="starsMax" matInput />
+              </mat-form-field>
+            </ng-container>
           </div>
         </div>
         <div class="form-column half">
-          <div class="form-row">
+          <div class="form-row radio">
             <mat-label>
               Created
             </mat-label>
             <mat-radio-group aria-label="Select an option" formControlName="createdSort">
-              <mat-radio-button value="1">{{sortDateEnumLabelMapping[sortDateEnum.BEFORE]}}</mat-radio-button>
-              <mat-radio-button value="2">{{sortDateEnumLabelMapping[sortDateEnum.ONORBEFORE]}}</mat-radio-button>
-              <mat-radio-button value="1">{{sortDateEnumLabelMapping[sortDateEnum.AFTER]}}</mat-radio-button>
-              <mat-radio-button value="2">{{sortDateEnumLabelMapping[sortDateEnum.ONORAFTER]}}</mat-radio-button>
-              <mat-radio-button value="2">{{sortDateEnumLabelMapping[sortDateEnum.BETWEEN]}}</mat-radio-button>
+              <mat-radio-button [value]="sortDateEnum.BEFORE">{{sortDateEnumLabelMapping[sortDateEnum.BEFORE]}}</mat-radio-button>
+              <mat-radio-button [value]="sortDateEnum.ONORBEFORE">{{sortDateEnumLabelMapping[sortDateEnum.ONORBEFORE]}}</mat-radio-button>
+              <mat-radio-button [value]="sortDateEnum.AFTER">{{sortDateEnumLabelMapping[sortDateEnum.AFTER]}}</mat-radio-button>
+              <mat-radio-button [value]="sortDateEnum.ONORAFTER">{{sortDateEnumLabelMapping[sortDateEnum.ONORAFTER]}}</mat-radio-button>
+              <mat-radio-button [value]="sortDateEnum.BETWEEN">{{sortDateEnumLabelMapping[sortDateEnum.BETWEEN]}}</mat-radio-button>
             </mat-radio-group>
           </div>
-          <div class="form-row">
-            <mat-form-field appearance="fill">
-              <mat-label>Date</mat-label>
-              <input matInput [matDatepicker]="picker" formControlName="createdDate">
-              <mat-hint>MM/DD/YYYY</mat-hint>
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
+          <div class="form-row radio">
+            <ng-container *ngIf="searchForm.controls['createdSort'].value !== sortEnum.BETWEEN">
+              <mat-form-field appearance="fill">
+                <mat-label>Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="createdDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </ng-container>
+            <ng-container *ngIf="searchForm.controls['createdSort'].value === sortEnum.BETWEEN">
+              <mat-form-field appearance="fill">
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [rangePicker]="picker">
+                  <input formControlName="createdMin" matStartDate placeholder="Start date">
+                  <input formControlName="createdMax" matEndDate placeholder="End date">
+                </mat-date-range-input>
+                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+              </mat-form-field>
+            </ng-container>
           </div>
         </div>
       </div>
       <div class="form-row">
         <div class="form-column half">
-          <div class="form-row">
+          <div class="form-row radio">
             <mat-label>
               Size
             </mat-label>
-            <mat-radio-group aria-label="Select an option" formControlName="starsSort">
-              <mat-radio-button value="1">{{sortEnumLabelMapping[sortEnum.EQUAL]}}</mat-radio-button>
-              <mat-radio-button value="2">{{sortEnumLabelMapping[sortEnum.GREATER]}}</mat-radio-button>
-              <mat-radio-button value="2">{{sortEnumLabelMapping[sortEnum.LESS]}}</mat-radio-button>
-              <mat-radio-button value="2">{{sortEnumLabelMapping[sortEnum.BETWEEN]}}</mat-radio-button>
+            <mat-radio-group aria-label="Select an option" formControlName="sizeSort">
+              <mat-radio-button [value]="sortEnum.EQUAL">{{sortEnumLabelMapping[sortEnum.EQUAL]}}</mat-radio-button>
+              <mat-radio-button [value]="sortEnum.GREATER">{{sortEnumLabelMapping[sortEnum.GREATER]}}</mat-radio-button>
+              <mat-radio-button [value]="sortEnum.LESS">{{sortEnumLabelMapping[sortEnum.LESS]}}</mat-radio-button>
+              <mat-radio-button [value]="sortEnum.BETWEEN">{{sortEnumLabelMapping[sortEnum.BETWEEN]}}</mat-radio-button>
             </mat-radio-group>
           </div>
           <div class="form-row">
-            <mat-form-field
-              class="example-full-width"
-              appearance="fill"
-            >
-              <mat-label>Number</mat-label>
-              <input  formControlName="starsNumber" matInput />
-            </mat-form-field>
+            <ng-container *ngIf="searchForm.controls['sizeSort'].value !== sortEnum.BETWEEN">
+              <mat-form-field
+                class="example-full-width"
+                appearance="fill"
+              >
+                <mat-label>Number</mat-label>
+                <input  formControlName="size" matInput />
+              </mat-form-field>
+            </ng-container>
+            <ng-container *ngIf="searchForm.controls['sizeSort'].value === sortEnum.BETWEEN">
+              <mat-form-field
+                class="min"
+                appearance="fill"
+              >
+                <mat-label>Min</mat-label>
+                <input  formControlName="sizeMin" matInput />
+              </mat-form-field>
+              <span>-</span>
+              <mat-form-field
+                class="max"
+                appearance="fill"
+              >
+                <mat-label>Max</mat-label>
+                <input  formControlName="sizeMax" matInput />
+              </mat-form-field>
+            </ng-container>
           </div>
         </div>
         <div class="form-column half empty">

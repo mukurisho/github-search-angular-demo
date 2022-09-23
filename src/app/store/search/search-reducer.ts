@@ -16,7 +16,7 @@ export const initialState: SearchState = {
 
 export const searchReducer = createReducer(
   initialState,
-  on(search, (state) => ({ ...state, apiStatus: ApiStatus.Loading })),
+  on(search, (state) => ({ ...state, results: [], apiStatus: ApiStatus.Loading })),
   on(searchSuccess, (state, { results }) => ({
     ...state,
     results,

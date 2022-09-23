@@ -26,6 +26,19 @@
 
   .form-row {
     display: flex;
+    align-items: center;
+
+    &.radio {
+      min-height: 40px;
+      .mat-radio-group {
+        margin: 5px 20px;
+
+        .mat-radio-button {
+          margin-right: 20px;
+        }
+      }
+    }
+
 
     .form-column {
       display: flex;
@@ -34,9 +47,28 @@
       min-width: 300px;
       padding: 0 20px;
 
+      .form-column-container {
+        .form-sub-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          min-width: 300px;
+          min-height: 20px;
+          padding: 0 20px;
+        }
+      }
+
       mat-form-field  {
         width: 100%;
         margin-bottom: 10px;
+
+        .min {
+          margin-right: 10px;
+        }
+
+        .max {
+          margin-left: 10px;
+        }
       }
 
       &.half {

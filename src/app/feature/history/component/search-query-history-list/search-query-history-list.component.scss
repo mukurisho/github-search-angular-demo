@@ -5,7 +5,14 @@
 
 .list-item {
   cursor: pointer;
+  border: 1px solid #666;
+  margin: 10px 20px;
+  padding: 15px;
   &:hover {
+    background-color: #ccc;
+  }
+
+  &.active {
     background-color: #ccc;
   }
 }

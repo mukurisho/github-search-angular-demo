@@ -1,7 +1,7 @@
 <ng-container *ngIf="(queryHistoryList$ | async) as queryHistoryList">
   <p class="total-request-count">Total requests: {{queryHistoryList.length}}</p>
   <div *ngFor="let item of queryHistoryList; let i = index"
-    class="list-item" (click)="selectItem(i)">
+    class="list-item" (click)="selectItem(i)" [ngClass]="{'active': selectedQuery === i}">
     <app-query-history-list-item [listItem]="item"></app-query-history-list-item>
   </div>
 </ng-container>

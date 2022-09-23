@@ -1,7 +1,17 @@
 <div class="item-container">
-  <p>{{listItem.byDescription}}</p>
-  <p>{{listItem.byName}}</p>
-  <p>{{listItem.byReadme}}</p>
-  <p>{{listItem.language}}</p>
-  <p>{{listItem.searchBy}}</p>
+  <div class="column">
+    <p>searchBy: {{listItem.searchBy}}</p>
+    <p>byDescription: {{listItem.byDescription}}</p>
+    <p>byName: {{listItem.byName}}</p>
+    <p>byReadme: {{listItem.byReadme}}</p>
+    <p>Languages: <span *ngFor="let lang of listItem.language">{{lang}}</span></p>
+    <p>Created: {{listItem.createdDate | date : 'yyyy-MM-dd' }}</p>
+  </div>
+  <div class="column">
+    <p>Organization: {{listItem.organization}}</p>
+    <p>Size: {{listItem.size}}</p>
+    <p>Stars: {{listItem.starsNumber}}</p>
+    <p>Topic: <span *ngFor="let top of listItem.topic">{{top}}</span></p>
+    <p>User name: {{listItem.userNAme}}</p>
+  </div>
 </div>
